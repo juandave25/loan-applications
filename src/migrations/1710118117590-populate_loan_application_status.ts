@@ -4,14 +4,12 @@ export class PopulateLoanApplicationStatus1710118117590
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`INSERT INTO "loan_status" VALUES ('Submitted');`);
     await queryRunner.query(
-      `INSERT INTO "loan_status" VALUES (1,'Submitted');`,
+      `INSERT INTO "loan_status" VALUES ('Under Review');`,
     );
-    await queryRunner.query(
-      `INSERT INTO "loan_status" VALUES (2,'Under Review');`,
-    );
-    await queryRunner.query(`INSERT INTO "loan_status" VALUES (3,'Approved');`);
-    await queryRunner.query(`INSERT INTO "loan_status" VALUES (4,'Rejected');`);
+    await queryRunner.query(`INSERT INTO "loan_status" VALUES ('Approved');`);
+    await queryRunner.query(`INSERT INTO "loan_status" VALUES ('Rejected');`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

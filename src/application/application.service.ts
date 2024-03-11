@@ -18,7 +18,25 @@ export class ApplicationService {
 
   async findAll(): Promise<ResponseDto> {
     const loanApplications = await this.loanApplicationDatabaseRepository.find({
-      relations: { user: true, statusChanges: true },
+      relations: { user: true, statusChanges: { status: true } },
+      select: {
+        id: true,
+        amountRequested: true,
+        submissionDate: true,
+        user: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          role: true,
+          email: true,
+        },
+        statusChanges: {
+          id: true,
+          status: { id: true, name: true },
+          changeDate: true,
+          comments: true,
+        },
+      },
     });
     return { success: true, data: loanApplications };
   }
@@ -27,7 +45,25 @@ export class ApplicationService {
     const loanApplication =
       await this.loanApplicationDatabaseRepository.findOne({
         where: { id: id },
-        relations: { user: true, statusChanges: true },
+        relations: { user: true, statusChanges: { status: true } },
+        select: {
+          id: true,
+          amountRequested: true,
+          submissionDate: true,
+          user: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            role: true,
+            email: true,
+          },
+          statusChanges: {
+            id: true,
+            status: { id: true, name: true },
+            changeDate: true,
+            comments: true,
+          },
+        },
       });
     return { success: true, data: loanApplication };
   }
