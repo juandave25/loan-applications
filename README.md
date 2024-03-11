@@ -51,11 +51,14 @@ $ npm run test:cov
 
 ## Containerization
 ```bash
-# If you wanna use docker you can execute the docker-compose.yml file
+# If you want to use docker you can execute the docker-compose.yml file
 $ docker compose up
 # After you have build the image you can create your container based on this image
 $ docker run --name <<container name>> <<image name>>
 ```
+
+## Postman
+If you want to test the API with some data. You can import Postman collection located in Postman folder
 
 ## Stay in touch
 
