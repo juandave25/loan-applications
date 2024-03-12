@@ -6,12 +6,14 @@ import { Repository } from 'typeorm';
 import { ResponseDto } from 'src/dto/response.dto';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userDatabaseRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async create(registerDto: RegisterDto): Promise<ResponseDto> {
@@ -54,6 +56,12 @@ export class UserService {
         message: 'Invalid email or password',
       };
     }
+    const payload = {
+      sub: user.id,
+      username: user.email,
+      role: user.role,
+      name: `${user.firstName} ${user.lastName}`,
+    };
     return {
       success: true,
       data: {
@@ -62,6 +70,9 @@ export class UserService {
         first_name: user.firstName,
         last_name: user.lastName,
         role: user.role,
+        access_token: await this.jwtService.signAsync(payload, {
+          expiresIn: '1h',
+        }),
       },
     };
   }

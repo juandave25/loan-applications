@@ -4,12 +4,15 @@ import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { ApplicationDto } from 'src/dto/application.dto';
 import { LoanApplicationStatusChangeDto } from 'src/dto/applicationStatusChange.dto';
 import { ResponseDto } from 'src/dto/response.dto';
+import { Roles } from 'src/user/decorators/roles.decorator';
+import { Role } from 'src/user/enums/role.enum';
 
 @Controller({ version: '1' })
 export class ApplicationController {
   constructor(private readonly applicationService: ApplicationService) {}
 
   @Post('applications')
+  @Roles(Role.Applicant)
   @HttpCode(201)
   @ApiResponse({
     status: 201,
@@ -22,6 +25,7 @@ export class ApplicationController {
   }
 
   @Get('applications')
+  @Roles(Role.Admin)
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -34,6 +38,7 @@ export class ApplicationController {
   }
 
   @Get('applications/:id')
+  @Roles(Role.Applicant)
   @HttpCode(200)
   @ApiResponse({
     status: 200,
@@ -46,6 +51,7 @@ export class ApplicationController {
   }
 
   @Post('applications/status-change')
+  @Roles(Role.Admin)
   @HttpCode(201)
   @ApiResponse({
     status: 201,

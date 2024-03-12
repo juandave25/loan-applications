@@ -4,11 +4,13 @@ import { LoginDto } from '../dto/Login.dto';
 import { RegisterDto } from '../dto/register.dto';
 import { ResponseDto } from 'src/dto/response.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { Public } from './decorators/public.decorators';
 
 @Controller({ version: '1' })
 export class UserController {
   constructor(private readonly usersService: UserService) {}
 
+  @Public()
   @Post('users/register')
   @ApiResponse({
     status: 201,
@@ -21,6 +23,7 @@ export class UserController {
     return response;
   }
 
+  @Public()
   @Post('users/login')
   @ApiResponse({
     status: 200,

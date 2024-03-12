@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "60414322-b18d-410f-a125-23520d33699b",
+		"_postman_id": "904a53b9-274a-4d64-a645-7768a2fe21cb",
 		"name": "loan-application-service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29933716",
-		"_collection_link": "https://martian-astronaut-231797.postman.co/workspace/New-Team-Workspace~88d85fcf-5189-4f8e-a8c8-61092323dfb7/collection/29933716-60414322-b18d-410f-a125-23520d33699b?action=share&source=collection_link&creator=29933716"
+		"_exporter_id": "29933716"
 	},
 	"item": [
 		{
@@ -56,6 +55,16 @@
 		{
 			"name": "get-applications",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoianVhbmRhdmlkdjRAbWFpbC5jb20iLCJyb2xlIjoiQXBwbGljYW50IiwibmFtZSI6Ikp1YW4gVmVsZXoiLCJpYXQiOjE3MTAyMTkxNzgsImV4cCI6MTcxMDIyMjc3OH0.r837HlNZfSf5zBO4LhLPQLhV2I9bfDNoA64cWj0AyYk",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -118,7 +127,7 @@
 			"response": []
 		},
 		{
-			"name": "login",
+			"name": "login-applicant",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -168,6 +177,62 @@
 						"{{API_VERSION}}",
 						"applications",
 						"status-change"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"marcov4@mail.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_VERSION}}/users/login",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_VERSION}}",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register-admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\" : \"Marco\",\r\n    \"lastName\": \"Velez\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"Admin\",\r\n    \"email\": \"marcov4@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{API_VERSION}}/users/register",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{API_VERSION}}",
+						"users",
+						"register"
 					]
 				}
 			},
